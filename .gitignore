@@ -1,5 +1,5 @@
 
-# AgentOps Intelligence
+# AgentOps Intelligence - Git ignore rules
 # Owner: Tony Anuge
 # Deliverable: D01
 
@@ -23,6 +23,36 @@ __pycache__/
 .env
 .env.*
 !.env.example
+
+# AWS local credentials
+.aws/
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Terraform local files and state
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+
+# Local database files
+*.duckdb
+*.duckdb.wal
+*.sqlite
+*.sqlite3
+*.db
+
+# Local PostgreSQL data directories
+pgdata/
+postgres_data/
 
 # Temporary files and logs
 *.log
