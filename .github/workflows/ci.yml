@@ -1,0 +1,55 @@
+
+# AgentOps Intelligence - Continuous Integration
+# Owner: Tony Anuge
+# Deliverable: D01
+
+name: Python CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# CI only needs permission to read repository files.
+permissions:
+  contents: read
+
+jobs:
+  quality-checks:
+    name: Lint, Types and Tests
+    runs-on: ubuntu-24.04
+
+    steps:
+      # Download repository files into the runner.
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # Install the approved uv version.
+      - name: Install uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.13.7"
+
+      # Install Python using the project's version pin.
+      - name: Install Python
+        run: uv python install 3.12
+
+      # Install dependencies from the committed lockfile.
+      - name: Synchronise dependencies
+        run: uv sync --locked
+
+      # Check code style and formatting.
+      - name: Ruff lint
+        run: uv run --locked ruff check scripts/ tests/
+
+      - name: Ruff format
+        run: uv run --locked ruff format --check scripts/ tests/
+
+      # Check Python type annotations.
+      - name: Mypy
+        run: uv run --locked mypy scripts/ tests/
+
+      # Execute automated tests.
+      - name: Pytest
+        run: uv run --locked pytest -v

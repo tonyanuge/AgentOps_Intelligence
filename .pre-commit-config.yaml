@@ -1,0 +1,39 @@
+
+# AgentOps Intelligence - Pre-commit configuration
+# Owner: Tony Anuge
+# Deliverable: D01
+
+repos:
+  - repo: local
+    hooks:
+      # Check Python code quality.
+      - id: ruff-check
+        name: Ruff lint
+        entry: python -m ruff check scripts/ tests/
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      # Check Python code formatting.
+      - id: ruff-format
+        name: Ruff format check
+        entry: python -m ruff format --check scripts/ tests/
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      # Check Python types.
+      - id: mypy
+        name: Mypy type check
+        entry: python -m mypy scripts/ tests/
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      # Run automated tests.
+      - id: pytest
+        name: Pytest
+        entry: python -m pytest -q
+        language: system
+        pass_filenames: false
+        always_run: true

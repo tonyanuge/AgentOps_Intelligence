@@ -1,0 +1,39 @@
+
+# AgentOps Intelligence - Python project configuration
+# Owner: Platform Engineering
+# Deliverable: D01
+
+[project]
+name = "agentops-intelligence"
+version = "0.1.0"
+description = "Incident detection and AI investigation platform"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+# Development dependencies managed by uv.
+[dependency-groups]
+dev = [
+    "pytest>=9.0,<10.0",
+    "ruff>=0.14,<1.0",
+    "mypy>=1.18,<2.0",
+    "pre-commit>=4.0,<5.0",
+]
+
+# Do not install this project as a Python package yet.
+[tool.uv]
+package = false
+
+# Pytest configuration.
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+# Ruff linting configuration.
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+# Mypy type-checking configuration.
+[tool.mypy]
+python_version = "3.12"
+strict = true
