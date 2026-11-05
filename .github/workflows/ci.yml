@@ -53,3 +53,7 @@ jobs:
       # Execute automated tests.
       - name: Pytest
         run: uv run --locked pytest -v
+
+      # Reject prohibited files before publication.
+      - name: Check repository publication rules
+        run: uv run --locked python -m scripts.check_publication
